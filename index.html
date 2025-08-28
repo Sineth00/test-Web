@@ -192,12 +192,6 @@
       border-radius: 12px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
-    #contact img.loaded {
-      opacity: 1;
     }
 
     #contact img:hover {
@@ -286,7 +280,7 @@
       <h2>Contact</h2>
       <p>Have questions or need support? Connect with us on social media.<br>We’re here to help you.</p>
       <a href="https://wa.me/+94766424733" target="_blank" aria-label="Go to Whatsapp">
-        <img data-src="https://res.cloudinary.com/dl167vevk/image/upload/v1753967122/Contact_hjz6rm.png"
+        <img src="https://res.cloudinary.com/dl167vevk/image/upload/v1753967122/Contact_hjz6rm.png"
           alt="Whatsapp Website Button" />
       </a>
     </section>
@@ -308,9 +302,9 @@
       });
     });
 
-    // Lazy Load + Fade-in Script
+    // Lazy Load + Fade-in Script for gallery only
     document.addEventListener("DOMContentLoaded", () => {
-      const lazyImages = document.querySelectorAll("img[data-src]");
+      const lazyImages = document.querySelectorAll(".gallery img[data-src]");
 
       const loadImage = (img) => {
         img.src = img.getAttribute("data-src");
