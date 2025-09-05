@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="https://res.cloudinary.com/dimsryuqt/image/upload/v1757098693/Logo_hkuv7v_kf1y5o.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luka</title>
+  <style>
+    * {
+      scroll-behavior: smooth;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #121212;
+      color: #f5f5f5;
+      padding-top: 70px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: white;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #00ffff;
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+    }
+
+    nav a {
+      margin-left: 20px;
+      color: rgb(0, 0, 0);
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00ffff;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      padding-top: 80px;
+      transition: right 0.3s ease;
+      z-index: 999;
+    }
+
+    .sidebar a {
+      color: white;
+      padding: 15px 20px;
+      text-decoration: none;
+      border-bottom: 1px solid #333;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    section {
+      padding: 60px 40px 40px 40px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-top: 60px;
+    }
+
+    @media (min-width: 768px) {
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .photo {
+      width: 100%;
+      max-width: 1280px;
+      overflow: hidden;
+      border-radius: 16px;
+      background-color: #222;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+    }
+
+    .photo:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7);
+    }
+
+    .photo-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .photo-image.loaded {
+      opacity: 1;
+    }
+
+    .photo-content {
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .photo-content h3 {
+      font-size: 22px;
+      color: #00ff22;
+      margin-bottom: 8px;
+    }
+
+    .photo-content p {
+      font-size: 14px;
+      color: #ddd;
+      margin: 0;
+    }
+
+    #about {
+      background-color: #1e1e1e;
+      padding: 100px 40px;
+      margin-top: 60px;
+    }
+
+    #contact {
+      background-color: #181818;
+      padding: 80px 40px;
+      margin-top: 60px;
+    }
+
+    #contact img {
+      margin-top: 30px;
+      width: 80px;
+      max-width: 90%;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #contact img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    #home h1 {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 40px;
+    }
+
+    h1,
+    h2 {
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+
+    p {
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="top"></div>
+
+  <header>
+    <a href="index.html" class="logo">Gaming Luka</a>
+    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+    <nav>
+      <a href="#top">Home</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <div class="sidebar" id="sidebar">
+    <a href="#top" onclick="toggleSidebar()">Home</a>
+    <a href="#about" onclick="toggleSidebar()">About</a>
+    <a href="#contact" onclick="toggleSidebar()">Contact</a>
+  </div>
+
+  <main>
+    <section id="home">
+      <h1>Welcome to Luka WEB </h1>
+      <div class="gallery">
+
+        <a href="Sensitivity.html" class="photo">
+          <img data-src="https://res.cloudinary.com/dimsryuqt/image/upload/v1757098701/Free_Panel_zcvona_rsxhc2.png"
+            alt="Free Gaming Panel Image" class="photo-image" />
+          <div class="photo-content">
+            <h3>Sensitivity File</h3>
+            <p><br>This is Not A Hack This Just a sensitivity to Improve Our Gameplay id no band.</p>
+          </div>
+        </a>
+        
+        </a>
+         <a href="Glitchfile.html" class="photo">
+          <img data-src="https://res.cloudinary.com/dimsryuqt/image/upload/v1757098694/12_r9xnuk_huxgxw.png"
+            alt="Paid Pro Panel Image" class="photo-image" />
+          <div class="photo-content">
+            <h3>Glitch File</h3>
+            
+            <p><br>Free Fire headshot file new update 100% working id no band.
+            </p>
+    
+          </div>
+        </a>
+        <a href="app_comingsoon.html" class="photo">
+          <img data-src="https://res.cloudinary.com/dimsryuqt/image/upload/v1757098701/Paid_Panel_bqjztn_wmtnla.png"
+            alt="Paid Pro Panel Image" class="photo-image" />
+          <div class="photo-content">
+            <h3>Sensitivity injector App <br>(Coming Soon)</h3>
+            <p><br>Sensitivity injector android application in 100% working, id no band, Download and install to Improve
+              your Gameplay</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2>About Us</h2>
+      <p>Luka is a trusted platform for gamers seeking reliable panels and in-game tools. We offer both free and paid
+        options, all tested and optimized for performance. Join our growing community and elevate your gameplay
+        experience.</p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Have questions or need support? Connect with us on social media.<br>We’re here to help you.</p>
+      <a href="https://wa.me/+94769492722" target="_blank" aria-label="Go to Whatsapp">
+        <img src="https://res.cloudinary.com/dimsryuqt/image/upload/v1757098691/Contact_ffrvwl_k1yqqe.png"
+          alt="Whatsapp Website Button" />
+      </a>
+    </section>
+  </main>
+
+  <script src="js/index.js"></script>
+</body>
+
+</html>
